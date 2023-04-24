@@ -11,6 +11,8 @@
 		B7546F4F29F71E7800ECA012 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7546F4E29F71E7800ECA012 /* ContentView.swift */; };
 		B7546F5129F71E7900ECA012 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7546F5029F71E7900ECA012 /* Assets.xcassets */; };
 		B7546F5429F71E7900ECA012 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7546F5329F71E7900ECA012 /* Preview Assets.xcassets */; };
+		B7546F5B29F722EF00ECA012 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7546F5A29F722EF00ECA012 /* ImagePicker.swift */; };
+		B774AE1D29F7293C005FD9E3 /* Cloudinary in Frameworks */ = {isa = PBXBuildFile; productRef = B774AE1C29F7293C005FD9E3 /* Cloudinary */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +21,8 @@
 		B7546F4E29F71E7800ECA012 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B7546F5029F71E7900ECA012 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B7546F5329F71E7900ECA012 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B7546F5A29F722EF00ECA012 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		B774AE1A29F7259C005FD9E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +30,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B774AE1D29F7293C005FD9E3 /* Cloudinary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,10 +56,12 @@
 		B7546F4B29F71E7800ECA012 /* CloudinaryUpload */ = {
 			isa = PBXGroup;
 			children = (
+				B774AE1A29F7259C005FD9E3 /* Info.plist */,
 				B7546F4C29F71E7800ECA012 /* CloudinaryUploadApp.swift */,
 				B7546F4E29F71E7800ECA012 /* ContentView.swift */,
 				B7546F5029F71E7900ECA012 /* Assets.xcassets */,
 				B7546F5229F71E7900ECA012 /* Preview Content */,
+				B7546F5A29F722EF00ECA012 /* ImagePicker.swift */,
 			);
 			path = CloudinaryUpload;
 			sourceTree = "<group>";
@@ -83,6 +90,9 @@
 			dependencies = (
 			);
 			name = CloudinaryUpload;
+			packageProductDependencies = (
+				B774AE1C29F7293C005FD9E3 /* Cloudinary */,
+			);
 			productName = CloudinaryUpload;
 			productReference = B7546F4929F71E7800ECA012 /* CloudinaryUpload.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +121,9 @@
 				Base,
 			);
 			mainGroup = B7546F4029F71E7800ECA012;
+			packageReferences = (
+				B774AE1B29F7293C005FD9E3 /* XCRemoteSwiftPackageReference "cloudinary_ios" */,
+			);
 			productRefGroup = B7546F4A29F71E7800ECA012 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,6 +150,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7546F5B29F722EF00ECA012 /* ImagePicker.swift in Sources */,
 				B7546F4F29F71E7800ECA012 /* ContentView.swift in Sources */,
 				B7546F4D29F71E7800ECA012 /* CloudinaryUploadApp.swift in Sources */,
 			);
@@ -270,6 +284,8 @@
 				DEVELOPMENT_TEAM = 854V78MWGF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CloudinaryUpload/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to be able to open it";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -299,6 +315,8 @@
 				DEVELOPMENT_TEAM = 854V78MWGF;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CloudinaryUpload/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to be able to open it";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -339,6 +357,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B774AE1B29F7293C005FD9E3 /* XCRemoteSwiftPackageReference "cloudinary_ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cloudinary/cloudinary_ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B774AE1C29F7293C005FD9E3 /* Cloudinary */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B774AE1B29F7293C005FD9E3 /* XCRemoteSwiftPackageReference "cloudinary_ios" */;
+			productName = Cloudinary;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B7546F4129F71E7800ECA012 /* Project object */;
 }
