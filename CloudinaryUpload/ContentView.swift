@@ -47,7 +47,17 @@ struct ContentView: View {
     }
     
     func uploadImage() {
-        let config = CLDConfiguration(cloudName: "your_cloud_name", apiKey: "your_api_key", apiSecret: "your_api_secret")
+        guard let path = Bundle.main.path(forResource: "env", ofType: "plist"),
+              let xml = FileManager.default.contents(atPath: path),
+              let plist = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainersAndLeaves, format: nil),
+              let myDictionary = plist as? [String: String],
+              let cloudName = myDictionary["CLOUDINARY_CLOUD_NAME"],
+              let apiKey = myDictionary["CLOUDINARY_API_KEY"],
+              let apiSecret = myDictionary["CLOUDINARY_API_SECRET"] else {
+            fatalError("Environment variables not found")
+        }
+        
+        let config = CLDConfiguration(cloudName: cloudName, apiKey: apiKey, apiSecret: apiSecret)
         let cloudinary = CLDCloudinary(configuration: config)
         
         let data = imageSelected.jpegData(compressionQuality: 0.8)!
