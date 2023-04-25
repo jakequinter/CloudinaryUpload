@@ -39,6 +39,9 @@ struct ContentView: View {
             Button("Upload Image") {
                 uploadImage()
             }
+            Button("Add food") {
+                addFood()
+            }
             
         }
         .sheet(isPresented: $isShowingSheet) {
@@ -70,6 +73,41 @@ struct ContentView: View {
                 print("Image uploaded successfully: \(result.secureUrl ?? "")")
             }
         }
+    }
+    
+    func addFood() {
+        guard let path = Bundle.main.path(forResource: "env", ofType: "plist"),
+              let xml = FileManager.default.contents(atPath: path),
+              let plist = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainersAndLeaves, format: nil),
+              let myDictionary = plist as? [String: String],
+              let token = myDictionary["TOKEN"] else {
+            fatalError("Environment variables not found")
+        }
+        
+        let url = URL(string: "http://localhost:3000/api/food")!
+        let data = Food(restaurantName: "Example Restaurant", jakeRating: 4, jenRating: 5, link: "https://example.com", image: "https://example.com/image.jpg")
+        let jsonData = try! JSONEncoder().encode(data)
+
+        var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.setValue("\(token)", forHTTPHeaderField: "Authorization")
+            request.httpBody = jsonData
+
+
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error)")
+            } else if let data = data {
+                do {
+                    let result = try JSONDecoder().decode(Food.self, from: data)
+                    print("Result: \(result)")
+                } catch let error {
+                    print("Error decoding response: \(error)")
+                }
+            }
+        }
+        task.resume()
     }
 }
 

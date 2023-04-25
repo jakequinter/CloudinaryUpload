@@ -14,6 +14,7 @@
 		B7546F5B29F722EF00ECA012 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7546F5A29F722EF00ECA012 /* ImagePicker.swift */; };
 		B774AE1D29F7293C005FD9E3 /* Cloudinary in Frameworks */ = {isa = PBXBuildFile; productRef = B774AE1C29F7293C005FD9E3 /* Cloudinary */; };
 		B774AE1F29F733F9005FD9E3 /* env.plist in Resources */ = {isa = PBXBuildFile; fileRef = B774AE1E29F733F9005FD9E3 /* env.plist */; };
+		B7839C7D29F8706B009064AA /* Food.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7839C7C29F8706B009064AA /* Food.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		B7546F5A29F722EF00ECA012 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		B774AE1A29F7259C005FD9E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B774AE1E29F733F9005FD9E3 /* env.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = env.plist; sourceTree = "<group>"; };
+		B7839C7C29F8706B009064AA /* Food.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Food.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		B7546F4B29F71E7800ECA012 /* CloudinaryUpload */ = {
 			isa = PBXGroup;
 			children = (
+				B7839C7B29F87060009064AA /* Models */,
 				B7546F4C29F71E7800ECA012 /* CloudinaryUploadApp.swift */,
 				B7546F4E29F71E7800ECA012 /* ContentView.swift */,
 				B7546F5A29F722EF00ECA012 /* ImagePicker.swift */,
@@ -75,6 +78,14 @@
 				B7546F5329F71E7900ECA012 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B7839C7B29F87060009064AA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B7839C7C29F8706B009064AA /* Food.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -155,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7546F5B29F722EF00ECA012 /* ImagePicker.swift in Sources */,
+				B7839C7D29F8706B009064AA /* Food.swift in Sources */,
 				B7546F4F29F71E7800ECA012 /* ContentView.swift in Sources */,
 				B7546F4D29F71E7800ECA012 /* CloudinaryUploadApp.swift in Sources */,
 			);
