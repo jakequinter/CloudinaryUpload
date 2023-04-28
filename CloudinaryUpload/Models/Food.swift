@@ -8,9 +8,9 @@
 import Foundation
 
 struct Food: Codable {
-    let restaurantName: String
-    let jakeRating: Int
-    let jenRating: Int
-    let link: String
-    let image: String
+    var restaurantName: String
+    var jakeRating: Double
+    var jenRating: Double
+    var link: String
+    var image: String
 }
