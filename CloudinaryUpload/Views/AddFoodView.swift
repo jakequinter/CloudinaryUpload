@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+enum Choice {
+    case camera, photoLibrary
+}
+
 struct AddFoodView: View {
     @ObservedObject private var viewModel = AddFoodViewModel()
     @State private var choice: Choice = .photoLibrary
@@ -94,7 +98,7 @@ struct AddFoodView: View {
             .navigationTitle("Add food")
         }
         .sheet(isPresented: $isShowingSheet) {
-            ImagePicker(selectedImage: viewModel.imageBinding, sourceType: choice == .camera ? .camera :  .photoLibrary)
+            ImagePicker(selectedImage: viewModel.imageBinding, sourceType: choice == .camera ? .camera : .photoLibrary)
         }
     }
 }

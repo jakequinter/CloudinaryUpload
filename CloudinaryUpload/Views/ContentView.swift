@@ -8,11 +8,6 @@
 
 import SwiftUI
 
-
-enum Choice {
-    case camera, photoLibrary
-}
-
 struct ContentView: View {
     @State private var isShowingAddFood = false
     
