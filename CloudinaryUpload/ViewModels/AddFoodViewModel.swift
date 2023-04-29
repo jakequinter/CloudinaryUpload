@@ -14,6 +14,8 @@ class AddFoodViewModel: ObservableObject {
     
     @Published var food = Food(restaurantName: "", jakeRating: 0, jenRating: 0, link: "", image: "")
     @Published var image: UIImage?
+    @Published var loading = false
+    @Published var successfulSubmission = false
     @Published var showingError = false
     @Published var errorMessage = ""
     
@@ -24,8 +26,8 @@ class AddFoodViewModel: ObservableObject {
         )
     }
     
-    var noSelectedImage: Bool {
-        image == nil
+    var disabled: Bool {
+        self.image == nil || food.restaurantName.isEmpty || food.link.isEmpty || self.loading
     }
     
     func uploadImage(completion: @escaping (String?) -> Void) {
@@ -41,7 +43,8 @@ class AddFoodViewModel: ObservableObject {
         }
         guard let image = self.image,
               let data = image.jpegData(compressionQuality: 0.8) else {
-            print("ERROR: handle me")
+            self.errorMessage = "No image availble"
+            self.showingError = true
             return
         }
         
@@ -54,7 +57,9 @@ class AddFoodViewModel: ObservableObject {
         
         cloudinary.createUploader().signedUpload(data: data, params: params, progress: nil) { result, error in
             if let error = error {
-                print("Error uploading image: \(error)")
+                print("Error: \(error.localizedDescription)")
+                self.errorMessage = "There was a problem uploading your image to Cloudinary"
+                self.showingError = true
                 completion(nil)
             } else if let result = result {
                 completion(result.secureUrl)
@@ -64,6 +69,8 @@ class AddFoodViewModel: ObservableObject {
     
     
     func addFood() {
+        self.loading = true
+        
         guard let path = Bundle.main.path(forResource: "env", ofType: "plist"),
               let xml = FileManager.default.contents(atPath: path),
               let plist = try? PropertyListSerialization.propertyList(from: xml, options: .mutableContainersAndLeaves, format: nil),
@@ -75,7 +82,8 @@ class AddFoodViewModel: ObservableObject {
         do {
             self.uploadImage { secureUrl in
                 guard let secureUrl = secureUrl else {
-                    print("No valid image")
+                    self.errorMessage = "No valid image"
+                    self.showingError = true
                     return
                 }
                 
@@ -91,13 +99,20 @@ class AddFoodViewModel: ObservableObject {
                 
                 let task = URLSession.shared.dataTask(with: request) { data, response, error in
                     if let error = error {
-                        print("Error: \(error)")
+                        print("Error: \(error.localizedDescription)")
+                        self.errorMessage = "There was a problem with the API"
+                        self.showingError = true
+                        self.loading = false
                     } else if let data = data {
                         do {
-                            let result = try JSONDecoder().decode(Food.self, from: data)
-                            print("Result: \(result)")
+                            try JSONDecoder().decode(Food.self, from: data)
+                            self.successfulSubmission = true
+                            self.loading = false
                         } catch let error {
-                            print("Error decoding response: \(error)")
+                            print("Error: \(error.localizedDescription)")
+                            self.errorMessage = "There was an error decoding the response"
+                            self.showingError = true
+                            self.loading = false
                         }
                     }
                 }

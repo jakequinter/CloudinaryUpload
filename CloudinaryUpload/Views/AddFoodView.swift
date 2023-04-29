@@ -15,7 +15,9 @@ struct AddFoodView: View {
     @ObservedObject private var viewModel = AddFoodViewModel()
     @State private var choice: Choice = .photoLibrary
     @State private var isShowingSheet = false
-   
+    @FocusState var isInputActive: Bool
+    
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -27,6 +29,8 @@ struct AddFoodView: View {
                         .stroke()
                         .foregroundColor(.secondary.opacity(0.5))
                     )
+                    .focused($isInputActive)
+                    .autocapitalization(.none)
                 
                 TextField("Restaurant url", text: $viewModel.food.link)
                     .padding()
@@ -36,8 +40,10 @@ struct AddFoodView: View {
                         .stroke()
                         .foregroundColor(.secondary.opacity(0.5))
                     )
+                    .focused($isInputActive)
+                    .autocapitalization(.none)
                 
-                TextField("Jake rating", value: $viewModel.food.jakeRating, formatter: NumberFormatter())
+                TextField("Jake rating", value: $viewModel.food.jakeRating, format: .number)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .cornerRadius(10)
@@ -45,8 +51,10 @@ struct AddFoodView: View {
                         .stroke()
                         .foregroundColor(.secondary.opacity(0.5))
                     )
+                    .keyboardType(.decimalPad)
+                    .focused($isInputActive)
                 
-                TextField("Jen rating", value: $viewModel.food.jenRating, formatter: NumberFormatter())
+                TextField("Jen rating", value: $viewModel.food.jenRating, format: .number)
                     .padding()
                     .frame(maxWidth: .infinity)
                     .cornerRadius(10)
@@ -54,6 +62,8 @@ struct AddFoodView: View {
                         .stroke()
                         .foregroundColor(.secondary.opacity(0.5))
                     )
+                    .keyboardType(.decimalPad)
+                    .focused($isInputActive)
                 
                 HStack {
                     Button("Choose existing photo") {
@@ -79,6 +89,7 @@ struct AddFoodView: View {
                 if let image = viewModel.image {
                     Image(uiImage: image)
                         .resizable()
+                        .aspectRatio(3/4, contentMode: .fit)
                         .cornerRadius(10)
                 }
                 
@@ -90,18 +101,46 @@ struct AddFoodView: View {
                     Text("Add")
                         .padding()
                         .frame(maxWidth: .infinity)
-                        .background(viewModel.noSelectedImage ? Color.black.gradient.opacity(0.1) : Color.black.gradient.opacity(1))
+                        .background(viewModel.disabled ? Color.black.gradient.opacity(0.1) : Color.black.gradient.opacity(1))
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
                 .padding(.top, 24)
-                .disabled(viewModel.noSelectedImage)
+                .disabled(viewModel.disabled)
             }
             .padding()
             .navigationTitle("Add food")
+            .toolbar {
+                ToolbarItemGroup(placement: .keyboard) {
+                    Spacer()
+                    
+                    Button("Done") {
+                        isInputActive = false
+                    }
+                }
+            }
+            .overlay(
+                ZStack {
+                    if viewModel.loading {
+                        Color.black.opacity(0.3)
+                            .ignoresSafeArea()
+                        
+                        LoadingView()
+                            .frame(width: 300, height: 100)
+                            .cornerRadius(20)
+                    }
+                }
+            )
+            
         }
         .sheet(isPresented: $isShowingSheet) {
             ImagePicker(selectedImage: viewModel.imageBinding, sourceType: choice == .camera ? .camera : .photoLibrary)
+        }
+        .alert(viewModel.errorMessage, isPresented: $viewModel.showingError) {
+            Button("OK") {
+                viewModel.loading = false
+                viewModel.showingError = false
+            }
         }
     }
 }

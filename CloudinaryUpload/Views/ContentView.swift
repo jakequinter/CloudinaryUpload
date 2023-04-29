@@ -16,7 +16,7 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.accentColor.opacity(0.5).edgesIgnoringSafeArea(.all)
+            Color.accentColor.opacity(0.4).edgesIgnoringSafeArea(.all)
             GeometryReader { geometry in
                 ZStack {
                     ForEach(Array(zip(emojis, percentages)), id: \.0) { emoji, percentage in
