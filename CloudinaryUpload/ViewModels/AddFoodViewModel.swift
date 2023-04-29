@@ -104,16 +104,8 @@ class AddFoodViewModel: ObservableObject {
                         self.showingError = true
                         self.loading = false
                     } else if let data = data {
-                        do {
-                            try JSONDecoder().decode(Food.self, from: data)
-                            self.successfulSubmission = true
-                            self.loading = false
-                        } catch let error {
-                            print("Error: \(error.localizedDescription)")
-                            self.errorMessage = "There was an error decoding the response"
-                            self.showingError = true
-                            self.loading = false
-                        }
+                        self.successfulSubmission = true
+                        self.loading = false
                     }
                 }
                 task.resume()

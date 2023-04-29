@@ -99,14 +99,14 @@ struct AddFoodView: View {
                     viewModel.addFood()
                 } label: {
                     Text("Add")
-                        .padding()
+                        .font(.title3.bold())
                         .frame(maxWidth: .infinity)
-                        .background(viewModel.disabled ? Color.black.gradient.opacity(0.1) : Color.black.gradient.opacity(1))
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
                 }
-                .padding(.top, 24)
                 .disabled(viewModel.disabled)
+                .padding()
+                .background(viewModel.disabled ? Color.accentColor.opacity(0.4) : Color.accentColor.opacity(1))
+                .cornerRadius(.infinity)
+                .foregroundColor(.white)
             }
             .padding()
             .navigationTitle("Add food")
@@ -135,6 +135,7 @@ struct AddFoodView: View {
         }
         .sheet(isPresented: $isShowingSheet) {
             ImagePicker(selectedImage: viewModel.imageBinding, sourceType: choice == .camera ? .camera : .photoLibrary)
+                .presentationCornerRadius(35)
         }
         .alert(viewModel.errorMessage, isPresented: $viewModel.showingError) {
             Button("OK") {

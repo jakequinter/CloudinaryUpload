@@ -44,6 +44,7 @@ struct ContentView: View {
             }
             .sheet(isPresented: $isShowingAddFood) {
                 AddFoodView()
+                    .presentationCornerRadius(35)
             }
         }
     }
