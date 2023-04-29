@@ -57,12 +57,15 @@ struct AddFoodView: View {
                 
                 HStack {
                     Button("Choose existing photo") {
-                        self.choice = .photoLibrary
-                        self.isShowingSheet = true
+                        choice = .photoLibrary
+                        print("choice: \(choice)")
+                        isShowingSheet = true
                     }
+                    
                     Button {
-                        self.choice = .camera
-                        self.isShowingSheet = true
+                        choice = .camera
+                        print("choice: \(choice)")
+                        isShowingSheet = true
                     } label: {
                         HStack {
                             Image(systemName: "camera")
